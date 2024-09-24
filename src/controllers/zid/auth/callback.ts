@@ -1,9 +1,42 @@
+// @ts-nocheck
+import {ZidApiService} from "../../../services/zid-service";
+export const zidAuthCallback = async (req, res) => {
+    // zid will redirect the user to your application again and send you `code` in the query parameters
+    const zidCode = req.query.code;
+
+    // from this code you must retrieve the merchant tokens to use them in your further requests
+    const merchantTokens = await ZidApiService.getTokensByCode(zidCode);
+
+    const managerToken = merchantTokens.access_token;
+    const authToken = merchantTokens.authorization;
+    const refreshToken = merchantTokens.refresh_token;
+
+    // Check if the user already exists in the database
+    // let user = await UsersService.getUserByZidToken( managerToken);
+    if (!user) {
+        const zidMerchantDetails = await ZidApiService.getMerchantProfile(managerToken, authToken);
+        // create user from zid merchant details response
+    }
+
+    // by reaching here, the OAuth flow has been finished, and zid merchant now should be able to access your application.
+    // continue with your own logic from now on please.
+    //
+    //
+    // redirect the user to your application dashboard.
+    return res.redirect(' Your Dashboard URL ');
+};
+
+
+
+
 // import { Request, Response, NextFunction } from 'express';
 // const ZidApiService = require('../../../services/zid-service');
 
 // export const zidAuthCallback = async (req: Request, res: Response, next: NextFunction) => {
 //   try {
+//     console.log(req.body)
 //     const code = req.query.code as string | undefined;
+    
     
 //     if (!code) {
 //       console.error('No code received in callback');
@@ -34,6 +67,8 @@
 //     console.error('Error in zidAuthCallback:', error);
 //     return res.status(500).json({ error: 'Internal server error during callback', details: (error instanceof Error ? error.message : String(error)) });
 //   }
+// //  return res.status(200).json({ message: 'url active' });
+
 // };
 
 // @ts-nocheck
