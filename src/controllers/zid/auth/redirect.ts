@@ -12,6 +12,7 @@ export function zidAuthRedirect(req: Request, res: Response) {
 }
 
 export default zidAuthRedirect;
+
   // export const zidAuthRedirect = (req, res, next) => {
 //     try {
 //         const queries = new URLSearchParams({
