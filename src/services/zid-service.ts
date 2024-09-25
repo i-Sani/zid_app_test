@@ -15,10 +15,10 @@ export class ZidApiService {
             const response = await axios.post(url, requestBody);
             return response.data;
         } catch (error) {
-            console.error(error);
+            console.error("Error fetching tokens:", error.response ? error.response.data : error.message);
+            throw new Error("Failed to retrieve tokens");
         }
     }
-
     public static async getMerchantProfile(managerToken: string, authToken: string) {
         const url = `${process.env.ZID_BASE_API_URL}/managers/account/profile`;
         const requestHeaders = {
