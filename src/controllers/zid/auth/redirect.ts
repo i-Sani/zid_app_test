@@ -2,7 +2,7 @@ export const zidAuthRedirect = (req, res, next) => {
     try {
         const queries = new URLSearchParams({
             client_id: process.env.ZID_CLIENT_ID,
-            redirect_uri: `${process.env.MY_BACKEND_URL}/zid/auth/callback`,
+            redirect_uri: `${process.env.MY_BACKEND_URL}/zid/oauth/callback`,
             response_type: 'code',
         });
 

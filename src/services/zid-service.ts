@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 
 export class ZidApiService {
@@ -8,17 +7,30 @@ export class ZidApiService {
             grant_type: 'authorization_code',
             client_id: process.env.ZID_CLIENT_ID,
             client_secret: process.env.ZID_CLIENT_SECRET,
-            redirect_uri: `${process.env.MY_BACKEND_URL}/zid/auth/callback`,
+            redirect_uri: `${process.env.MY_BACKEND_URL}/zid/oauth/callback`,
             code: code,
         };
+
+        // Add detailed logging to troubleshoot the issue
+        console.log('Attempting to fetch tokens with the following data:');
+        console.log('URL:', url);
+        console.log('Request Body:', requestBody);
+
         try {
             const response = await axios.post(url, requestBody);
+            console.log('Token response:', response.data);  // Log the successful response
             return response.data;
         } catch (error) {
-            console.error("Error fetching tokens:", error.response ? error.response.data : error.message);
+            // Log the error in more detail
+            if (error.response) {
+                console.error('Error fetching tokens, response from Zid:', error.response.data);  // Log response error details
+            } else {
+                console.error('Error fetching tokens:', error.message);  // Log general error message
+            }
             throw new Error("Failed to retrieve tokens");
         }
     }
+
     public static async getMerchantProfile(managerToken: string, authToken: string) {
         const url = `${process.env.ZID_BASE_API_URL}/managers/account/profile`;
         const requestHeaders = {
