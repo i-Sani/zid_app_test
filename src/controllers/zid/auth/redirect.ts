@@ -2,11 +2,11 @@ export const zidAuthRedirect = (req, res, next) => {
     try {
         const queries = new URLSearchParams({
             client_id: process.env.ZID_CLIENT_ID,
-            redirect_uri: `${process.env.MY_BACKEND_URL}/zid/oauth/callback`,
+            redirect_uri: `${process.env.MY_BACKEND_URL}/zid/auth/callback`,
             response_type: 'code',
         });
 
-        const authUrl = `${process.env.ZID_AUTH_URL}/oauth/authorize?${queries}`;
+        const authUrl = `${process.env.ZID_AUTH_URL}/auth/authorize?${queries}`;
 
         console.log('Zid Auth Redirect - Environment variables:');
         console.log('ZID_CLIENT_ID:', process.env.ZID_CLIENT_ID);

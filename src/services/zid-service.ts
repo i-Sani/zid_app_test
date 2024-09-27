@@ -2,12 +2,12 @@ import axios from 'axios';
 
 export class ZidApiService {
     public static async getTokensByCode(code: string) {
-        const url = `${process.env.ZID_AUTH_URL}/oauth/token`;
+        const url = `${process.env.ZID_AUTH_URL}/auth/token`;
         const requestBody = {
             grant_type: 'authorization_code',
             client_id: process.env.ZID_CLIENT_ID,
             client_secret: process.env.ZID_CLIENT_SECRET,
-            redirect_uri: `${process.env.MY_BACKEND_URL}/zid/oauth/callback`,
+            redirect_uri: `${process.env.MY_BACKEND_URL}/zid/auth/callback`,
             code: code,
         };
 
