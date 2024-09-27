@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-const ZidApiService = require('../../../services/zid-service');
+// const ZidApiService = require('../../../services/zid-service');
+import { ZidApiService } from '../../../services/zid-service';  // Ensure correct path
 
 export const zidAuthCallback = async (req: Request, res: Response, next: NextFunction) => {
   try {
