@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { ZidApiService } from "src/services/zid-service";
-
+import { ZidApiService } from '../../../services/zid-service';
 export const zidAuthCallback = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const code = req.query.code as string | undefined;  // Ensure code is properly typed
